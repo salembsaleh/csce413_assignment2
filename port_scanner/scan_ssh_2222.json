@@ -1,0 +1,11 @@
+[
+  {
+    "host": "172.20.0.20",
+    "port": 2222,
+    "proto": "tcp",
+    "state": "open",
+    "rtt_ms": 13.0,
+    "service": "ssh",
+    "banner": "SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.13"
+  }
+]

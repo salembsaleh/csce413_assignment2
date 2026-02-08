@@ -1,0 +1,2 @@
+host,port,proto,state,service,rtt_ms,banner
+172.20.0.20,2222,tcp,open,ssh,13.0,"SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.13"

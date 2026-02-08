@@ -1,0 +1,11 @@
+[
+  {
+    "host": "172.20.0.22",
+    "port": 6379,
+    "proto": "tcp",
+    "state": "open",
+    "rtt_ms": 500.9,
+    "service": "redis",
+    "banner": ""
+  }
+]

@@ -1,0 +1,2 @@
+host,port,proto,state,service,rtt_ms,banner
+172.20.0.10,5000,tcp,open,http,502.7,"HTTP/1.1 200 OK\nServer: Werkzeug/3.1.5 Python/3.11.14\nDate: Sun, 08 Feb 2026 10:16:04 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 5324\nConnection: close"

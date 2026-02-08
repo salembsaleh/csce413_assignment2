@@ -1,0 +1,2 @@
+host,port,proto,state,service,rtt_ms,banner
+172.20.0.21,8888,tcp,open,http,502.7,"HTTP/1.1 200 OK\nServer: Werkzeug/3.1.5 Python/3.11.14\nDate: Sun, 08 Feb 2026 09:50:31 GMT\nContent-Type: application/json\nContent-Length: 652\nConnection: close"

@@ -1,0 +1,11 @@
+[
+  {
+    "host": "172.20.0.11",
+    "port": 3306,
+    "proto": "tcp",
+    "state": "open",
+    "rtt_ms": 0.9,
+    "service": "mysql",
+    "banner": "J\u0000\u0000\u0000\n8.0.45\u0000\u0000\u0000\u0000 9X5xo%\u0002\u0000\u0002\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000} \u001d?1YAjUXm_\u0000mysql_native_password\u0000"
+  }
+]

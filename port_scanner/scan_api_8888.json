@@ -1,0 +1,11 @@
+[
+  {
+    "host": "172.20.0.21",
+    "port": 8888,
+    "proto": "tcp",
+    "state": "open",
+    "rtt_ms": 502.7,
+    "service": "http",
+    "banner": "HTTP/1.1 200 OK\r\nServer: Werkzeug/3.1.5 Python/3.11.14\r\nDate: Sun, 08 Feb 2026 09:50:31 GMT\r\nContent-Type: application/json\r\nContent-Length: 652\r\nConnection: close"
+  }
+]
