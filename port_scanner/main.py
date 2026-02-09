@@ -11,9 +11,7 @@ import ipaddress
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-# -----------------------------
 # Service fingerprinting
-# -----------------------------
 def guess_service(port, banner):
     if banner:
         b = banner.lower()
@@ -72,9 +70,7 @@ def grab_banner_tcp(sock: socket.socket, port: int) -> str:
     return ""
 
 
-# -----------------------------
 # TCP connect scan
-# -----------------------------
 def scan_port_tcp(target, port, timeout):
     start = time.time()
     sock = None
@@ -125,9 +121,7 @@ def scan_port_tcp(target, port, timeout):
             sock.close()
 
 
-# -----------------------------
 # UDP scan
-# -----------------------------
 def scan_port_udp(target, port, timeout):
     start = time.time()
     sock = None
@@ -181,9 +175,7 @@ def scan_port_udp(target, port, timeout):
             sock.close()
 
 
-# -----------------------------
 # Scan range with threading
-# -----------------------------
 def scan_range(targets, start_port, end_port, scan_type, threads, timeout):
     results = []
     ports = range(start_port, end_port + 1)
@@ -210,9 +202,7 @@ def scan_range(targets, start_port, end_port, scan_type, threads, timeout):
     return results
 
 
-# -----------------------------
 # Main
-# -----------------------------
 def main():
     if len(sys.argv) < 5:
         print("Usage:")
@@ -266,7 +256,7 @@ def main():
     else:
         print(f"    open|filtered: {len(ambiguous_results)}")
 
-    # Detailed output (meets “state open/closed + timing” requirement)
+    # Output
     print("\n[+] Ports:")
     for r in results:
         if not show_closed and r["state"] == "closed":
