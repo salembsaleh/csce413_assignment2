@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-TARGET_IP=${1:-172.20.0.40}
+TARGET_IP=${1:-172.20.0.20}
 SEQUENCE=${2:-"1234,5678,9012"}
 PROTECTED_PORT=${3:-2222}
 

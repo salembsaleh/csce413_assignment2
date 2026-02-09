@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Starter template for the port knocking server."""
+"""Port knocking server."""
 
 import argparse
 import logging
 import socket
 import time
+import subprocess
 
 DEFAULT_KNOCK_SEQUENCE = [1234, 5678, 9012]
 DEFAULT_PROTECTED_PORT = 2222
 DEFAULT_SEQUENCE_WINDOW = 10.0
+
+# Extra: Add timing constraints (sequence must complete within 30 seconds)
+DEFAULT_ALLOW_SECONDS = 30.0
 
 
 def setup_logging():
@@ -19,16 +23,46 @@ def setup_logging():
     )
 
 
-def open_protected_port(protected_port):
+def open_protected_port(protected_port, src_ip):
     """Open the protected port using firewall rules."""
-    # TODO: Use iptables/nftables to allow access to protected_port.
-    logging.info("TODO: Open firewall for port %s", protected_port)
+    subprocess.run(
+        [
+            "iptables",
+            "-I",
+            "INPUT",
+            "-p",
+            "tcp",
+            "-s",
+            src_ip,
+            "--dport",
+            str(protected_port),
+            "-j",
+            "ACCEPT",
+        ],
+        check=False,
+    )
+    logging.info("Opening port %s for %s", protected_port, src_ip)
 
 
-def close_protected_port(protected_port):
+def close_protected_port(protected_port, src_ip):
     """Close the protected port using firewall rules."""
-    # TODO: Remove firewall rules for protected_port.
-    logging.info("TODO: Close firewall for port %s", protected_port)
+    subprocess.run(
+        [
+            "iptables",
+            "-D",
+            "INPUT",
+            "-p",
+            "tcp",
+            "-s",
+            src_ip,
+            "--dport",
+            str(protected_port),
+            "-j",
+            "ACCEPT",
+        ],
+        check=False,
+    )
+    logging.info("Closing port %s for %s", protected_port, src_ip)
 
 
 def listen_for_knocks(sequence, window_seconds, protected_port):
@@ -37,14 +71,74 @@ def listen_for_knocks(sequence, window_seconds, protected_port):
     logger.info("Listening for knocks: %s", sequence)
     logger.info("Protected port: %s", protected_port)
 
-    # TODO: Create UDP or TCP listeners for each knock port.
-    # TODO: Track each source IP and its progress through the sequence.
-    # TODO: Enforce timing window per sequence.
-    # TODO: On correct sequence, call open_protected_port().
-    # TODO: On incorrect sequence, reset progress.
+    # Default deny (insert DROP only if it doesn't already exist)
+    drop_rule = [
+        "INPUT",
+        "-p",
+        "tcp",
+        "--dport",
+        str(protected_port),
+        "-j",
+        "DROP",
+    ]
+
+    exists = subprocess.run(["iptables", "-C"] + drop_rule, check=False).returncode == 0
+    if not exists:
+        subprocess.run(["iptables", "-I"] + drop_rule, check=False)
+
+    sockets = {}
+    for port in sequence:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.bind(("0.0.0.0", port))
+        sockets[port] = s
+
+    progress = {}  # src_ip -> (index, start_time)
+    open_until = {}  # src_ip -> expiry_time
 
     while True:
-        time.sleep(1)
+        now = time.time()
+
+        # Close expired ports
+        for ip, expiry in list(open_until.items()):
+            if now >= expiry:
+                close_protected_port(protected_port, ip)
+                del open_until[ip]
+
+        for port, sock in sockets.items():
+            sock.settimeout(0.5)
+            try:
+                _, (src_ip, _) = sock.recvfrom(1024)
+            except socket.timeout:
+                continue
+
+            if src_ip in open_until:
+                continue
+
+            if src_ip not in progress:
+                if port == sequence[0]:
+                    progress[src_ip] = (1, now)
+                    logger.info("Sequence started for %s", src_ip)
+                continue
+
+            idx, start = progress[src_ip]
+
+            if now - start > window_seconds:
+                logger.info("Sequence timed out for %s", src_ip)
+                del progress[src_ip]
+                continue
+
+            if port == sequence[idx]:
+                idx += 1
+                if idx == len(sequence):
+                    logger.info("Sequence complete for %s", src_ip)
+                    open_protected_port(protected_port, src_ip)
+                    open_until[src_ip] = now + DEFAULT_ALLOW_SECONDS
+                    del progress[src_ip]
+                else:
+                    progress[src_ip] = (idx, start)
+            else:
+                logger.info("Wrong knock from %s, resetting", src_ip)
+                del progress[src_ip]
 
 
 def parse_args():

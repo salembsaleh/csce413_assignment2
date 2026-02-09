@@ -89,7 +89,7 @@ def scan_port_tcp(target, port, timeout):
             "state": "open",
             "rtt_ms": round(rtt, 1),
             "service": guess_service(port, banner),
-            "banner": banner
+            "banner": banner,
         }
 
     except socket.timeout:
@@ -101,7 +101,7 @@ def scan_port_tcp(target, port, timeout):
             "state": "filtered",
             "rtt_ms": round(rtt, 1),
             "service": "unknown",
-            "banner": ""
+            "banner": "",
         }
 
     except (ConnectionRefusedError, OSError):
@@ -113,7 +113,7 @@ def scan_port_tcp(target, port, timeout):
             "state": "closed",
             "rtt_ms": round(rtt, 1),
             "service": "unknown",
-            "banner": ""
+            "banner": "",
         }
 
     finally:
@@ -141,7 +141,7 @@ def scan_port_udp(target, port, timeout):
             "state": "open",
             "rtt_ms": round(rtt, 1),
             "service": "unknown",
-            "banner": ""
+            "banner": "",
         }
 
     except socket.timeout:
@@ -154,7 +154,7 @@ def scan_port_udp(target, port, timeout):
             "state": "open|filtered",
             "rtt_ms": round(rtt, 1),
             "service": "unknown",
-            "banner": ""
+            "banner": "",
         }
 
     except OSError:
@@ -167,7 +167,7 @@ def scan_port_udp(target, port, timeout):
             "state": "closed",
             "rtt_ms": round(rtt, 1),
             "service": "unknown",
-            "banner": ""
+            "banner": "",
         }
 
     finally:
@@ -206,7 +206,9 @@ def scan_range(targets, start_port, end_port, scan_type, threads, timeout):
 def main():
     if len(sys.argv) < 5:
         print("Usage:")
-        print("  python3 main.py <target|CIDR> <start_port> <end_port> <tcp|udp> [show_closed]")
+        print(
+            "  python3 main.py <target|CIDR> <start_port> <end_port> <tcp|udp> [show_closed]"
+        )
         print("Examples:")
         print("  python3 main.py 172.20.0.21 1 10000 tcp")
         print("  python3 main.py 172.20.0.0/24 8888 8888 tcp")
@@ -217,7 +219,7 @@ def main():
     start_port = int(sys.argv[2])
     end_port = int(sys.argv[3])
     scan_type = sys.argv[4].lower()
-    show_closed = (len(sys.argv) >= 6 and sys.argv[5].lower() == "show_closed")
+    show_closed = len(sys.argv) >= 6 and sys.argv[5].lower() == "show_closed"
 
     if scan_type not in ("tcp", "udp"):
         print("Scan type must be 'tcp' or 'udp'")
@@ -232,7 +234,9 @@ def main():
 
     # CIDR support
     if "/" in target_input:
-        targets = [str(ip) for ip in ipaddress.ip_network(target_input, strict=False).hosts()]
+        targets = [
+            str(ip) for ip in ipaddress.ip_network(target_input, strict=False).hosts()
+        ]
     else:
         targets = [target_input]
 
@@ -264,7 +268,9 @@ def main():
         svc = r["service"]
         banner = r.get("banner", "")
         # Keep banner short in terminal
-        banner_short = (banner[:100] + ("..." if len(banner) > 100 else "")) if banner else ""
+        banner_short = (
+            (banner[:100] + ("..." if len(banner) > 100 else "")) if banner else ""
+        )
         line = f"{r['host']}:{r['port']}/{r['proto']}  {r['state']:12s}  {svc:8s}  {r['rtt_ms']}ms"
         if banner_short:
             line += f"  | {banner_short}"
@@ -278,8 +284,15 @@ def main():
     with open("scan_results.csv", "w") as f:
         f.write("host,port,proto,state,service,rtt_ms,banner\n")
         for r in results:
-            banner = (r.get("banner", "") or "").replace('"', '""').replace("\n", "\\n").replace("\r", "")
-            f.write(f'{r["host"]},{r["port"]},{r["proto"]},{r["state"]},{r["service"]},{r["rtt_ms"]},"{banner}"\n')
+            banner = (
+                (r.get("banner", "") or "")
+                .replace('"', '""')
+                .replace("\n", "\\n")
+                .replace("\r", "")
+            )
+            f.write(
+                f'{r["host"]},{r["port"]},{r["proto"]},{r["state"]},{r["service"]},{r["rtt_ms"]},"{banner}"\n'
+            )
     print("[+] Results saved to scan_results.csv")
 
 

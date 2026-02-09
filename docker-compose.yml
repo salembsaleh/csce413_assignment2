@@ -106,14 +106,12 @@ services:
     build:
       context: ./port_knocking
       network: host
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
     cap_add:
       - NET_ADMIN
-    networks:
-      vulnerable_network:
-        ipv4_address: 172.20.0.40
+    depends_on:
+      - secret_ssh
+    network_mode: "service:secret_ssh"
+    restart: unless-stopped
 
 networks:
   vulnerable_network:
