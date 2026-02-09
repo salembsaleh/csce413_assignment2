@@ -92,8 +92,8 @@ def listen_for_knocks(sequence, window_seconds, protected_port):
         s.bind(("0.0.0.0", port))
         sockets[port] = s
 
-    progress = {}  # src_ip -> (index, start_time)
-    open_until = {}  # src_ip -> expiry_time
+    progress = {}
+    open_until = {}
 
     while True:
         now = time.time()

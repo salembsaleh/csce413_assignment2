@@ -158,7 +158,6 @@ def scan_port_udp(target, port, timeout):
         }
 
     except OSError:
-        # Often indicates ICMP port unreachable => closed
         rtt = (time.time() - start) * 1000
         return {
             "host": target,
