@@ -1,0 +1,45 @@
+{"timestamp": "2026-02-09T07:26:23.418414+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 40054}
+{"timestamp": "2026-02-09T07:26:45.326823+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 40054, "duration_seconds": 21.908}
+{"timestamp": "2026-02-09T07:27:02.929723+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 40102}
+{"timestamp": "2026-02-09T07:27:04.671817+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 40102, "username": "sshuser", "password": "admin", "attempt": 1}
+{"timestamp": "2026-02-09T07:27:09.336649+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 40102, "username": "sshuser", "password": "password", "attempt": 2}
+{"timestamp": "2026-02-09T07:27:12.747597+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 40102, "username": "sshuser", "password": "123456", "attempt": 3}
+{"timestamp": "2026-02-09T07:27:12.748152+00:00", "event": "alert", "reason": "multiple_failed_logins", "client_ip": "172.20.0.1", "username": "sshuser", "fails": 3}
+{"timestamp": "2026-02-09T07:27:12.748258+00:00", "event": "auth_result", "client_ip": "172.20.0.1", "username": "sshuser", "result": "fake_success"}
+{"timestamp": "2026-02-09T07:27:57.969051+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "whoami"}
+{"timestamp": "2026-02-09T07:28:00.882303+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "pwd"}
+{"timestamp": "2026-02-09T07:28:04.347757+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "ls"}
+{"timestamp": "2026-02-09T07:28:07.685839+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "ls -la"}
+{"timestamp": "2026-02-09T07:28:12.102977+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "uname -a"}
+{"timestamp": "2026-02-09T07:28:15.660029+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "id"}
+{"timestamp": "2026-02-09T07:28:26.519920+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "cd Documents"}
+{"timestamp": "2026-02-09T07:28:33.718450+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "cat Documents"}
+{"timestamp": "2026-02-09T07:28:37.978630+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "cat Downloads"}
+{"timestamp": "2026-02-09T07:28:43.107617+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "cat .ssh"}
+{"timestamp": "2026-02-09T07:28:46.892831+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "cat notes.txt"}
+{"timestamp": "2026-02-09T07:29:28.667802+00:00", "event": "command", "client_ip": "172.20.0.1", "username": "sshuser", "command": "exit"}
+{"timestamp": "2026-02-09T07:29:28.668353+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 40102, "duration_seconds": 145.739}
+{"timestamp": "2026-02-09T07:47:19.091124+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 34686}
+{"timestamp": "2026-02-09T07:47:19.100181+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 34686, "duration_seconds": 0.009}
+{"timestamp": "2026-02-09T07:48:14.399963+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 52266}
+{"timestamp": "2026-02-09T07:48:20.300165+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 52266, "username": "admin", "password": "password", "attempt": 1}
+{"timestamp": "2026-02-09T07:48:36.313282+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 52266, "duration_seconds": 21.913}
+{"timestamp": "2026-02-09T07:48:46.292290+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 34798}
+{"timestamp": "2026-02-09T07:48:48.608659+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 34798, "username": "admin", "password": "admin", "attempt": 1}
+{"timestamp": "2026-02-09T07:48:50.442394+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 34798, "username": "admin", "password": "password", "attempt": 2}
+{"timestamp": "2026-02-09T07:48:51.891711+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 34798, "username": "admin", "password": "admin", "attempt": 3}
+{"timestamp": "2026-02-09T07:48:51.892450+00:00", "event": "alert", "reason": "multiple_failed_logins", "client_ip": "172.20.0.1", "username": "admin", "fails": 3}
+{"timestamp": "2026-02-09T07:48:52.244206+00:00", "event": "auth_result", "client_ip": "172.20.0.1", "username": "admin", "result": "fake_success"}
+{"timestamp": "2026-02-09T08:17:21.256397+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 36636}
+{"timestamp": "2026-02-09T08:17:21.307576+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 36636, "duration_seconds": 0.051}
+{"timestamp": "2026-02-09T08:17:34.281334+00:00", "event": "connection", "client_ip": "172.20.0.1", "client_port": 53344}
+{"timestamp": "2026-02-09T08:17:40.479918+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "password": "password", "attempt": 1}
+{"timestamp": "2026-02-09T08:17:42.713074+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "password": "passsword", "attempt": 2}
+{"timestamp": "2026-02-09T08:17:44.735769+00:00", "event": "auth_attempt", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "password": "hello", "attempt": 3}
+{"timestamp": "2026-02-09T08:17:44.736321+00:00", "event": "alert", "reason": "multiple_failed_logins", "client_ip": "172.20.0.1", "username": "admin", "fails": 3}
+{"timestamp": "2026-02-09T08:17:45.011277+00:00", "event": "auth_result", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "result": "fake_success"}
+{"timestamp": "2026-02-09T08:17:54.907170+00:00", "event": "command", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "command": "ls"}
+{"timestamp": "2026-02-09T08:18:03.560941+00:00", "event": "command", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "command": "curl something"}
+{"timestamp": "2026-02-09T08:18:03.562287+00:00", "event": "alert", "reason": "suspicious_command", "client_ip": "172.20.0.1", "username": "admin", "command": "curl something"}
+{"timestamp": "2026-02-09T08:19:27.258238+00:00", "event": "command", "client_ip": "172.20.0.1", "client_port": 53344, "username": "admin", "command": "exit"}
+{"timestamp": "2026-02-09T08:19:27.259802+00:00", "event": "disconnect", "client_ip": "172.20.0.1", "client_port": 53344, "duration_seconds": 112.978}

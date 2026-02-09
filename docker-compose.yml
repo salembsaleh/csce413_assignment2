@@ -93,12 +93,14 @@ services:
       - 8.8.8.8
       - 1.1.1.1
     ports:
-      - "2222:22"
+      - "2222:2222"
     networks:
       vulnerable_network:
         ipv4_address: 172.20.0.30
     volumes:
       - ./honeypot/logs:/app/logs
+    environment:
+      DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1470323908027748427/fZQ2wOMDkZigFcLG4RaYIf5N0CmpoertzYqLKTUIdW9XElj9AG_S1dZ8lFi6zEerH2BA"
 
   # TODO: Feel free to update port_knocking if needed
   port_knocking:
