@@ -1,22 +1,36 @@
-## Port Knocking Starter Template
+## Port Knocking
 
-This directory is a starter template for the port knocking portion of the assignment.
+### Required Functionality
+- A client that sends a sequence of UDP packets (knocks) to specific ports
+- A server that listens for these knocks
+- The SSH port (2222) is blocked by default
+- The protected port is only open after the correct sequence is received in order
 
-### What you need to implement
-- Pick a protected service/port (default is 2222).
-- Define a knock sequence (e.g., 1234, 5678, 9012).
-- Implement a server that listens for knocks and validates the sequence.
-- Open the protected port only after a valid sequence.
-- Add timing constraints and reset on incorrect sequences.
-- Implement a client to send the knock sequence.
+### Implementation Details
 
-### Getting started
-1. Implement your server logic in `knock_server.py`.
-2. Implement your client logic in `knock_client.py`.
-3. Update `demo.sh` to demonstrate your flow.
-4. Run from the repo root with `docker compose up port_knocking`.
+#### Port Knocking Client
+- The client sends UDP packets to each port in the knock sequence
+- A small delay is added between knocks to avoid packet loss
+- After sending the full sequence, the client optionally checks whether the protected port is open
 
-### Example usage
-```bash
-python3 knock_client.py --target 172.20.0.40 --sequence 1234,5678,9012
-```
+#### Port Knocking Server
+- The server listens on all knock ports using UDP sockets
+- Each source IP is tracked individually and must complete the sequence in order
+- If the sequence is incorrect or takes too long, progress is reset
+- Once the correct sequence is completed:
+  - An iptables rule is added to allow TCP access to port 2222 only for that source IP
+- After a fixed timeout, the firewall rule is automatically removed
+
+
+### Firewall Behavior
+- Port 2222 is blocked by default using iptables
+- Access is granted dynamically and temporarily
+- This prevents unauthorized scanning or brute-force attempts on the SSH service
+
+
+### Extra Features
+- Per-IP tracking so multiple clients can attempt knocking independently
+- Time window enforcement (the full sequence must be completed within a set number of seconds)
+- Automatic port re-locking after a successful connection window expires
+- Timeouts in the demo script to prevent hanging when ports are filtered
+
